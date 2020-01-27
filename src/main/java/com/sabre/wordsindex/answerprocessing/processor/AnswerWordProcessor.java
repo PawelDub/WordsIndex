@@ -1,4 +1,4 @@
-package com.sabre.wordsindex.answerprocessing;
+package com.sabre.wordsindex.answerprocessing.processor;
 
 import java.util.Set;
 import java.util.stream.Collectors;

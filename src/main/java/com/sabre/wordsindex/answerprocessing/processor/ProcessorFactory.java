@@ -1,15 +1,15 @@
-package com.sabre.wordsindex.answerprocessing;
+package com.sabre.wordsindex.answerprocessing.processor;
 
 import org.springframework.stereotype.Service;
 
 @Service
-class ProcessorFactory {
+public class ProcessorFactory {
 
-    enum WordProcessing {
+    public enum WordProcessing {
         WORD, WORD_DIGITAL, WORD_DIGITAL_DATA_TIMES,
     }
 
-    AnswerProcessor createProcessor(final WordProcessing wordProcessing) {
+    public AnswerProcessor createProcessor(final WordProcessing wordProcessing) {
         AnswerProcessor answerProcessor = null;
 
         switch (wordProcessing) {

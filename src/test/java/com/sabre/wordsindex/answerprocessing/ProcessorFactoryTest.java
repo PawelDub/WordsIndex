@@ -1,5 +1,8 @@
 package com.sabre.wordsindex.answerprocessing;
 
+import com.sabre.wordsindex.answerprocessing.processor.AnswerProcessor;
+import com.sabre.wordsindex.answerprocessing.processor.AnswerWordProcessor;
+import com.sabre.wordsindex.answerprocessing.processor.ProcessorFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
