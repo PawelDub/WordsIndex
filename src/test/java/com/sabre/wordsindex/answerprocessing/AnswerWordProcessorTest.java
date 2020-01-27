@@ -45,6 +45,13 @@ public class AnswerWordProcessorTest {
                 answerWordProcessor.collectWordsFrom(null));
     }
 
+    @DisplayName("Indexing builder should throw exception if text is null")
+    @Test
+    void IndexingBuilderShouldThrowExceptionWhenTextIsNull() {
+        assertThrows(NullPointerException.class, () ->
+                answerWordProcessor.collectWordsFrom(null));
+    }
+
     @DisplayName("Should collects single words correctly")
     @Test
     void shouldCollectsSingleWordsCorrectly() {

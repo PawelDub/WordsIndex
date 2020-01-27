@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 public class AnswerWordProcessor implements AnswerProcessor {
 
+    private final String MULTI_CHARACTERS_PATTERN = "(?:([`~!@#$%^&*()_+={\\[}\\]\\|'\":;?/>.<,\t\\\\-])|(\\d))";
+
     @Override
     public Set<String> processAnswer(String answer) {
         return Stream.of(answer

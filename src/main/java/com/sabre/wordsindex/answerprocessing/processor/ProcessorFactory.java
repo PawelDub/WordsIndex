@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class ProcessorFactory {
 
     public enum WordProcessing {
-        WORD, WORD_DIGITAL, WORD_DIGITAL_DATA_TIMES,
+        WORD, DIGIT, DATE, TIME
     }
 
     public AnswerProcessor createProcessor(final WordProcessing wordProcessing) {
@@ -14,6 +14,12 @@ public class ProcessorFactory {
 
         switch (wordProcessing) {
             case WORD: answerProcessor = new AnswerWordProcessor();
+            break;
+            case DIGIT: answerProcessor = new AnswerDigitProcessor();
+            break;
+            case DATE: answerProcessor = new AnswerDateProcessor();
+            break;
+            case TIME: answerProcessor = new AnswerTimeProcessor();
             break;
         }
         return answerProcessor;
