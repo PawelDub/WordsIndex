@@ -15,6 +15,10 @@ public interface AnswerProcessor {
     String COLON = ":";
     String DOUBLE_SPACE = "  ";
     String LETTER_PATTERN = "\\p{L}";
+    String TAB_PATTERN = "\\t";
+    String NEW_LINE_PATTERN = "\\n";
+    String BACK_PATTERN = "\\r";
+    String BACKSLASH_PATTERN = "\\";
 
     default Map<String, Set<String>> buildIndexedWordsCollection(final String text) {
         final Collator collator = Collator.getInstance(Locale.getDefault());
@@ -24,8 +28,9 @@ public interface AnswerProcessor {
             String[] splitWord = word.split(EMPTY_STRING);
             Stream.of(splitWord)
                     .forEach(singleChar -> {
-                        if (singleChar.equals(SLASH) || singleChar.equals(MINUS) || singleChar.equals(DOT) || singleChar.equals(COLON))
+                        if (singleChar.equals(SLASH) || singleChar.equals(MINUS) || singleChar.equals(DOT) || singleChar.equals(COLON)) {
                             return;
+                        }
 
                         if (indexWithWords.containsKey(singleChar)) {
                             indexWithWords.get(singleChar).add(word);

@@ -1,8 +1,5 @@
-package com.sabre.wordsindex.answerprocessing;
+package com.sabre.wordsindex.answerprocessing.processor;
 
-import com.sabre.wordsindex.answerprocessing.processor.AnswerProcessor;
-import com.sabre.wordsindex.answerprocessing.processor.AnswerWordProcessor;
-import com.sabre.wordsindex.answerprocessing.processor.ProcessorFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,7 @@ public class ProcessorFactoryTest {
     @DisplayName("Should return processor for collecting words")
     @Test
     void shouldReturWordProcessor() {
-        AnswerProcessor answerProcessor = processorFactory.createProcessor(ProcessorFactory.WordProcessing.WORD);
+        AnswerProcessor answerProcessor = processorFactory.createProcessor(ProcessingType.WORD);
         assertThat(answerProcessor).isInstanceOf(AnswerWordProcessor.class);
     }
 
@@ -34,6 +31,6 @@ public class ProcessorFactoryTest {
     @DisplayName("Should throw exception when type not match")
     @Test
     void shouldThrowExceptionWhenTypeNotMatch() {
-        assertThrows(IllegalArgumentException.class, () -> processorFactory.createProcessor(ProcessorFactory.WordProcessing.valueOf("NOT_MATCH")));
+        assertThrows(IllegalArgumentException.class, () -> processorFactory.createProcessor(ProcessingType.valueOf("NOT_MATCH")));
     }
 }

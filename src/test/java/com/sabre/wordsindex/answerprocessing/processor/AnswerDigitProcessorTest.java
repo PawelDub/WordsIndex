@@ -1,8 +1,5 @@
-package com.sabre.wordsindex.answerprocessing;
+package com.sabre.wordsindex.answerprocessing.processor;
 
-import com.sabre.wordsindex.answerprocessing.processor.AnswerDigitProcessor;
-import com.sabre.wordsindex.answerprocessing.processor.AnswerProcessor;
-import com.sabre.wordsindex.answerprocessing.processor.AnswerWordProcessor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

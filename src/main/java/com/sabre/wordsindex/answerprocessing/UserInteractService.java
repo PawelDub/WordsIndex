@@ -1,55 +1,74 @@
 package com.sabre.wordsindex.answerprocessing;
 
-import com.sabre.wordsindex.answerprocessing.processor.AnswerProcessor;
-import com.sabre.wordsindex.answerprocessing.processor.ProcessorFactory;
+import com.sabre.wordsindex.answerprocessing.processor.ProcessingFacade;
+import com.sabre.wordsindex.answerprocessing.processor.ProcessingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.System.exit;
 
 @Service
 class UserInteractService implements UserInteract {
+    private final static String YES_OR_NOT = "yes/not: ";
+    private final static String Y = "y";
+    private final static String YES = "yes";
+    private final static String PLEASE_ENTER_TEXT = "Please enter your text.";
 
-    private ProcessorFactory processorFactory;
+    private ProcessingFacade processingFacade;
 
     @Autowired
-    UserInteractService(final ProcessorFactory processorFactory) {
-        this.processorFactory = processorFactory;
+    UserInteractService(final ProcessingFacade processingFacade) {
+        this.processingFacade = processingFacade;
     }
 
     @Override
     public void userInteractProcess() {
         try (Scanner scanner = new Scanner(System.in)) {
-            printEnterText();
-            userInteract(scanner);
+            performUserInteract(scanner);
         } catch (Exception e) {
             e.getMessage();
         }
     }
 
-    private void userInteract(final Scanner scanner) {
-        while (scanner.hasNext()) {
+    private void printEnterText() {
+        System.out.println(PLEASE_ENTER_TEXT);
+    }
+
+    private void performUserInteract(final Scanner scanner) {
+            printSelectedTextIndexing();
+            final List<ProcessingType> processingTypes = collectProcessors(scanner);
+            printEnterText();
             final String userText = scanner.nextLine();
-            final Map<String, Set<String>> processedAnswer = processAnswerFrom(userText);
+            final Map<String, Set<String>> processedAnswer = processingFacade.processAnswerFrom(userText, processingTypes);
             printCollectionOf(processedAnswer);
             printContinueQuestion();
             final String continueAnswer = scanner.nextLine();
-            manageContinueAnswer(continueAnswer);
-        }
+            manageContinueAnswer(continueAnswer, scanner);
     }
 
-    private Map<String, Set<String>> processAnswerFrom(final String text) {
-        AnswerProcessor answerProcessor = processorFactory.createProcessor(ProcessorFactory.WordProcessing.WORD);
-        return answerProcessor.buildIndexedWordsCollection(text);
+    private void printSelectedTextIndexing() {
+        System.out.println("Please, tell me what would you like to indexing.");
     }
 
-    private void printEnterText() {
-        System.out.println("Please enter your text.");
+    private List<ProcessingType> collectProcessors(final Scanner scanner) {
+        return Stream.of(ProcessingType.values())
+                .filter(processor -> {
+                    printAskingOfIndexingType(processor);
+                    final String answerWords = scanner.nextLine().toLowerCase();
+                    return (answerWords.equals(Y) || answerWords.equals(YES));
+                })
+                .collect(Collectors.toList());
     }
+
+    private void printAskingOfIndexingType(final ProcessingType processor) {
+        System.out.println(String.format("Would you like indexing %s:",processor));
+        System.out.print(YES_OR_NOT);
+    }
+
 
     private void printCollectionOf(final Map<String, Set<String>> answer) {
         System.out.println("\nIndexed collections: ");
@@ -59,14 +78,14 @@ class UserInteractService implements UserInteract {
 
     private void printContinueQuestion() {
         System.out.println("\nWould you like to continue?");
-        System.out.print("yes/not: ");
+        System.out.print(YES_OR_NOT);
     }
 
-    private void manageContinueAnswer(final String continueAnswer) {
+    private void manageContinueAnswer(final String continueAnswer, final Scanner scanner) {
         final String lowerAnswer = continueAnswer.toLowerCase();
-        if (lowerAnswer.equals("y") || lowerAnswer.equals("yes")) {
-            System.out.println("Please enter new text.");
-            return;
+        if (lowerAnswer.equals(Y) || lowerAnswer.equals(YES)) {
+            System.out.println(PLEASE_ENTER_TEXT);
+            performUserInteract(scanner);
         }
         System.out.println("\nThank you for cooperate. \nGood Bye, see you next time.");
         exit(0);
