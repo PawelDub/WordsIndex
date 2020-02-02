@@ -30,7 +30,7 @@ class UserInteractService implements UserInteract {
         try (Scanner scanner = new Scanner(System.in)) {
             performUserInteract(scanner);
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 
