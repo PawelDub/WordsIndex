@@ -18,8 +18,8 @@ public class AnswerTimeProcessor implements AnswerProcessor {
     public Set<String> processAnswer(final String answer) {
         final String clearedTimeAnswer = clearTimeAnswer(answer);
         final Set<String> timesCollection = collectTimes(clearedTimeAnswer);
-        Set<String> ss =  timeSort(timesCollection);
-        return ss;
+        Set<String> sortedTimesCollection =  timeSort(timesCollection);
+        return sortedTimesCollection;
     }
 
     private String clearTimeAnswer(final String answer) {

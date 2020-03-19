@@ -44,10 +44,16 @@ class UserInteractService implements UserInteract {
             printEnterText();
             final String userText = scanner.nextLine();
             final Map<String, Set<String>> processedAnswer = processingFacade.processAnswerFrom(userText, processingTypes);
+            printChosenProcessingTypes(processingTypes);
             printCollectionOf(processedAnswer);
             printContinueQuestion();
             final String continueAnswer = scanner.nextLine();
             manageContinueAnswer(continueAnswer, scanner);
+    }
+
+    private void printChosenProcessingTypes(final List<ProcessingType> processingTypes) {
+        List<String> processes = processingTypes.stream().map(Objects::toString).collect(Collectors.toList());
+        System.out.println(String.format("\nYou have chosen indexing by %s", String.join(", ", processes)));
     }
 
     private void printSelectedTextIndexing() {
@@ -65,7 +71,7 @@ class UserInteractService implements UserInteract {
     }
 
     private void printAskingOfIndexingType(final ProcessingType processor) {
-        System.out.println(String.format("Would you like indexing %s:",processor));
+        System.out.println(String.format("Would you like indexing: %s %s", processor, processor.getMessage()));
         System.out.print(YES_OR_NOT);
     }
 

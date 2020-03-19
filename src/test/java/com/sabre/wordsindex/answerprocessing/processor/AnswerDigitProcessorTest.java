@@ -52,7 +52,7 @@ public class AnswerDigitProcessorTest {
     void shouldBuildIndexedCollectionOfDigitsCorrectly() {
         String text = "\t\t\tAla-2 \t\t22 222/565 2:566,,,,,,,,,, 25.26 --has a25.26.2006 02:23  %%,,,,,,,,,,,cat,^ <2a> " +
                 "{:''\"\"@!}## $$$cat6;develops**  \ta--------2cat:in ~[\tJava]/?||\\ \taccording12*12 to& (java-guide)_=+``~~ " +
-                "during to fly ,with44/1out ,,aviation4all and working in B2B work syst546456565em 000056 0056 056 000000055 " +
+                "during to fly ,with44/1out ,,aviation4all and working in B2B work syst546456565em 000056 0056 056 000000055 9223372036854775807 9223372036854775808 " +
                 "5sdasd/ ads /56:2233werwer 5-5*pd6d/6  16:15:59  16:15:5 --01/01/2000/.- 31/01/2000///.- 31/12/2000  12.02.20229-";
 
         Map<String, Set<String>> splitAnswer = answerDigitProcessor.buildIndexedWordsCollection(text);
@@ -65,14 +65,16 @@ public class AnswerDigitProcessorTest {
 
     private Map<String, Set<String>> buildExpectedIndexedCollection() {
         Map<String, Set<String>> expectedIndexedCollection = new TreeMap<>();
-        expectedIndexedCollection.put("0",new TreeSet<>(Arrays.asList("01", "02", "000000055", "056", "000056", "0056", "2000", "2006", "20229")));
+        expectedIndexedCollection.put("0",new TreeSet<>(Arrays.asList("01", "02", "000000055", "056", "000056", "0056", "2000", "2006", "20229", "9223372036854775807")));
         expectedIndexedCollection.put("1",new TreeSet<>(Arrays.asList("01", "1", "12", "15", "16", "31")));
-        expectedIndexedCollection.put("2",new TreeSet<>(Arrays.asList("02", "2", "12", "22", "23", "25", "26", "222", "2000", "2006", "2233", "20229")));
-        expectedIndexedCollection.put("3",new TreeSet<>(Arrays.asList("23", "31", "2233")));
-        expectedIndexedCollection.put("4",new TreeSet<>(Arrays.asList("4", "44", "546456565")));
-        expectedIndexedCollection.put("5",new TreeSet<>(Arrays.asList("5", "15", "25", "000000055", "056", "56", "000056", "0056", "59", "565", "566", "546456565")));
-        expectedIndexedCollection.put("6",new TreeSet<>(Arrays.asList("6", "16", "26", "056", "56", "56", "000056", "0056", "565", "566", "2006", "546456565")));
-        expectedIndexedCollection.put("9",new TreeSet<>(Arrays.asList("59", "20229")));
+        expectedIndexedCollection.put("2",new TreeSet<>(Arrays.asList("02", "2", "12", "22", "23", "25", "26", "222", "2000", "2006", "2233", "20229", "9223372036854775807")));
+        expectedIndexedCollection.put("3",new TreeSet<>(Arrays.asList("23", "31", "2233", "9223372036854775807")));
+        expectedIndexedCollection.put("4",new TreeSet<>(Arrays.asList("4", "44", "546456565", "9223372036854775807")));
+        expectedIndexedCollection.put("5",new TreeSet<>(Arrays.asList("5", "15", "25", "000000055", "056", "56", "000056", "0056", "59", "565", "566", "546456565", "9223372036854775807")));
+        expectedIndexedCollection.put("6",new TreeSet<>(Arrays.asList("6", "16", "26", "056", "56", "56", "000056", "0056", "565", "566", "2006", "546456565", "9223372036854775807")));
+        expectedIndexedCollection.put("7",new TreeSet<>(Arrays.asList("9223372036854775807")));
+        expectedIndexedCollection.put("8",new TreeSet<>(Arrays.asList("9223372036854775807")));
+        expectedIndexedCollection.put("9",new TreeSet<>(Arrays.asList("59", "20229", "9223372036854775807")));
         return expectedIndexedCollection;
     }
 

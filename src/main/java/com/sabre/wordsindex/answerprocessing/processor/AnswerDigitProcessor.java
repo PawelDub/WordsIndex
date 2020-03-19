@@ -43,11 +43,21 @@ public class AnswerDigitProcessor implements AnswerProcessor {
         indexWithDigits.forEach((index, digits) -> {
             Set<String> sortedDigits = digits
                     .stream()
-                    .sorted(Comparator.comparingInt(Integer::parseInt))
-                    .collect(Collectors.toCollection(LinkedHashSet::new));
+                    .filter(this::digitFitToLongRangeValue)
+                    .sorted(Comparator.comparingLong(Long::parseLong))
+                    .collect(Collectors.toCollection(TreeSet::new));
             indexWithSortedDigits.put(index, sortedDigits);
         });
         return indexWithSortedDigits;
+    }
+
+    private boolean digitFitToLongRangeValue(final String digit) {
+        try {
+            Long.parseLong(digit);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

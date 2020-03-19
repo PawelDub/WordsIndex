@@ -123,7 +123,11 @@ public class AnswerWordProcessorTest {
     void shouldBuildIndexedCollectionOfWordsCorrectly() {
         String text = "\t\t\tAla-2 \t\t22 222/565 2:566,,,,,,,,,, 25.26 --has a25.26.2006 02:23  %%,,,,,,,,,,,cat,^ <2a> " +
                 "{:''\"\"@!}## $$$cat6;develops**  \ta--------2cat:in ~[\tJava]/?||\\ \taccording12*12 to& (java-guide)_=+``~~ " +
-                "during to fly ,with44/1out ,,aviation4all and working in B2B work syst546456565em";
+                "during to fly ,with44/1out ,,aviation4all and working in B2B work syst546456565em " +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
 
         Map<String, Set<String>> splitAnswer = answerWordProcessor.buildIndexedWordsCollection(text);
         Map<String, Set<String>> expectedIndexedCollection = buildExpectedIndexedCollection();
@@ -135,7 +139,7 @@ public class AnswerWordProcessorTest {
 
     private Map<String, Set<String>> buildExpectedIndexedCollection() {
         Map<String, Set<String>> expectedIndexedCollection = new TreeMap<>();
-        expectedIndexedCollection.put("a",new TreeSet<>(Arrays.asList("a", "according", "ala", "all", "and", "aviation", "cat", "has", "java")));
+        expectedIndexedCollection.put("a",new TreeSet<>(Arrays.asList("a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "according", "ala", "all", "and", "aviation", "cat", "has", "java")));
         expectedIndexedCollection.put("b",new TreeSet<>(Arrays.asList("b")));
         expectedIndexedCollection.put("c",new TreeSet<>(Arrays.asList("according", "cat")));
         expectedIndexedCollection.put("d",new TreeSet<>(Arrays.asList("according", "and", "develops", "during", "guide")));

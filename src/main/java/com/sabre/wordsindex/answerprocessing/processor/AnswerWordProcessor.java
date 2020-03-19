@@ -21,6 +21,7 @@ public class AnswerWordProcessor implements AnswerProcessor {
                 .replaceAll(MULTI_SPACE_PATTERN, SPACE)
                 .trim()
                 .split(SPACE))
+                .filter(word -> word.length() < 250)
                 .collect(Collectors.toSet());
     }
 }
